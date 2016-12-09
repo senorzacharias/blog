@@ -1,0 +1,73 @@
+﻿@model TheBlogToEndAllBlogs.Models.Post
+@{
+    ViewBag.Title = "Post";
+}
+
+<div class="row">
+    <div id="post">
+        <div class="col-xs-12 col-md-9">
+            <div id="postTitle">
+                <h2>LoLo's American Kitchen</h2>
+            </div>
+            <div id="postContent">
+                <p>
+                    LOLO American Kitchen & Craft Bar, located in the heart of downtown Stillwater, is a contemporary restaurant featuring chef-driven seasonal local cuisine and an innovative bar program. Our menus consist of a variety of playful and composed dishes with a focus on gourmet American street foods, fresh handmade cocktails and unique craft beers and wine. We offer a casual, yet sophisticated ambiance while remaining unpretentious in nature.<br /><br />
+                    Located in what was once a brick alleyway, the storefront is designed to replicate the original Peasley building that was once part of historic Main Street.  The interior is designed by HAF Architects and provides a timeless décor in an environment that is warm, inviting, and comfortable.<br /><br />
+                    LOLO American Kitchen features a fully open kitchen & bar concept where patrons can take in the “show” allowing them to observe the preparations and executions from our chefs and bartenders.<br /><br />
+                    The word lolo is an acronym for “locally owned, locally operated” that commonly refers to street side lolo food stands in the Caribbean.  Lolos are known for their warm hospitality and high quality authentic food.  They are a refuge from the hotels and high priced restaurants of the islands.  A place where both locals and tourists are welcome. Stillwater natives, Brad Nordeen & Joe Ehlenz, brought their version of a lolo to Stillwater with LOLO American Kitchen & Craft Bar.<br /><br />
+                    Eat, Drink, Socialize.LOLO American Kitchen & Craft Bar
+                </p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <div id="author">Author</div>
+            <h4>Author's Name</h4>
+            <div id="#tags">#Tags</div>
+            <h4>List of HashTags for this post</h4>
+            <div>Location</div>
+            <div id="map" style="width:200px; height:200px; background-color:silver"></div>
+        </div>
+    </div>
+</div>
+<script>
+ 
+    //original map that does work
+    function myMap() {
+        var mapCanvas = document.getElementById("map");
+        var mapOptions = {
+            center: new google.maps.LatLng(44.977, -93.265), zoom: 11
+        };
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+     
+// pin based on street address
+        var geocoder = new google.maps.Geocoder();
+
+        var address = { 'address': "1120 LaFond Ave, St. Paul, MN 55104" };// this needs to be connected to database
+        var callback = function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+                        map.setCenter(results[0].geometry.location);
+                    };
+                    var marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: map,
+                        title: address.address
+                    });
+
+                } else {
+                    console.log('no results found');
+                }
+            } else {
+                console.log(status);
+            };
+
+        };
+        if (geocoder) {
+            geocoder.geocode(address, callback);
+        }
+
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaz4uwCsZadVlNwMr4E2fWeRA5n_7Jt0Q&callback=myMap"></script>
